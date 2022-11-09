@@ -4,6 +4,7 @@
     "version" : "1.0",
     "description" : "copies workbrain schedule to personal calendar",
     "permissions" : ["tabs"],
+    "host_permissions" : ["https://workbrain.cineplex.com/*"],
     "icons" : {
         "16" : "./images/logo.png",
         "48" : "./images/logo.png",
@@ -20,10 +21,14 @@
         }
     },
 
+    "background" : {
+        "service_worker" : "saveCalendar.js"
+    },
+
     "content_scripts" : [
         {
             "matches": ["https://workbrain.cineplex.com/*"],
-            "css": ["main.css"]
+            "js": ["copyCalendar.js"]
         }
     ]
 }
