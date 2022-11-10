@@ -3,7 +3,7 @@
     "name" : "Workbrain Calendar Copier",
     "version" : "1.0",
     "description" : "copies workbrain schedule to personal calendar",
-    "permissions" : ["scripting", "tabs", "activeTab"],
+    "permissions" : ["scripting", "tabs", "activeTab", "storage"],
     "host_permissions" : ["https://*.workbrain.cineplex.com/*"],
     "icons" : {
         "16" : "./images/logo.png",
@@ -22,7 +22,7 @@
     },
 
     "background" : {
-        "service_worker" : "saveCalendar.js"
+        "service_worker" : "background.js"
     }
     
     
