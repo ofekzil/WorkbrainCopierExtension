@@ -9,7 +9,7 @@ function setSchedule() {
   
   };
   
-  // monthYear is of teh form "Month Year" (w/ teh space)
+  // monthYear is of the form "Month Year" (w/ teh space)
   let monthYear = document.getElementsByClassName("pageTitle")[0].innerText;
   const separated = monthYear.split(/\s+/);
   console.assert(separated.length === 2);
@@ -26,7 +26,6 @@ function setSchedule() {
     console.log(curr);
     const parts = curr.split(/\s+/);
     console.log(parts.length);
-    //console.assert(parts.length === 5);
     schedule["Days"].push(setDay(parts));
   }
   console.log(schedule["Days"]); 
@@ -51,9 +50,6 @@ function setDay(dayInfo) {
 function writeToFile(obj) {
   const data = JSON.stringify(obj);
   download("schedule.json",data);
-  // chrome.storage.sync.set(obj, function(){
-  //   console.log("wrote to local storage");
-  // });
 }
 
 // downloads the schedule from the internet
@@ -70,8 +66,8 @@ function download(filename, text) {
   document.body.removeChild(element);
 }
 
-
 writeToFile(setSchedule());
+
 
 
 console.log("finished in copy")
