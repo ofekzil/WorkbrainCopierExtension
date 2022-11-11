@@ -6,6 +6,7 @@ chrome.tabs.onUpdated.addListener((tabID,tab) => {
 
   
   if (tab.url && tab.url.includes("workbrain.cineplex.com/etm/time/timesheet/etmTnsMonth")) {
+    console.log(tab.url);
     chrome.tabs.query({ active: true }, function (tabs) {
       chrome.scripting.executeScript({
           target: { tabId: tabID },
@@ -14,21 +15,10 @@ chrome.tabs.onUpdated.addListener((tabID,tab) => {
       console.log("finished execute script")
     });
 
+  } else {
+    alert("You must be in workbrain month mode to operate extension")
   }
 })
-    
+  
         
 }); 
-
-// function run(tabID, tab) {
-//   if (tab.url && tab.url.includes("workbrain.cineplex.com/etm/time/timesheet/etmTnsMonth")) {
-//     chrome.tabs.query({ active: true }, function (tabs) {
-//       chrome.scripting.executeScript({
-//           target: { tabId: tabID },
-//           files: ["saveCalendar.js"],
-//       });
-//       console.log("finished execute script")
-//     });
-
-//   }
-// }

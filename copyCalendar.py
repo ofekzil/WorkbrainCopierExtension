@@ -4,7 +4,11 @@
 import os
 import json
 from pathlib import Path
+from ics import Calendar, Event
 
+
+months = {"January": "01", "February": "02", "March": "03", "April": "04", "May": "05", "June": "06", 
+"July": "07", "August": "08", "September": "09", "October": "10", "November": "11", "December": "12"}
 
 # accesses the user's downloads folder
 if os.name == 'nt':
@@ -74,8 +78,23 @@ def load_data(sched_file):
     data = json.load(file)
     return data
 
+# creates .ics file from given schedule data
+def create_calendar(curr_data):
+    calendar = Calendar()
+    year_month = curr_data["Year"] + "-" + months[curr_data["Month"]] + "-"
+    for day in curr_data["Days"]:
+        begin = year_month + day["Date"] + " " + day["Start_Time"] + ":00"
+        end = year_month + day["Date"] + " " + day["End_Time"] + ":00"
+        shift = Event(name=day["Job"], begin=begin, end=end, location=day["Department"])
+        calendar.events.add(shift)
+    return calendar
+
+
 curr_sched = get_recent_schedule()
+print(curr_sched.name)
 curr_data = load_data(curr_sched)
 
 print(curr_data)
 
+curr_calendar = create_calendar(curr_data)
+print(curr_calendar.serialize())
