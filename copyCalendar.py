@@ -65,11 +65,7 @@ def get_recent_schedule():
         if (entry.is_file() and 'schedule' in entry.name and '.json' in entry.name):
             schedules.append(entry)
 
-    # print(schedules)
-
     most_recent = max(schedules, key=os.path.getctime)
-    # print(most_recent)
-
     return most_recent
 
 # load json data from the file
@@ -89,12 +85,21 @@ def create_calendar(curr_data):
         calendar.events.add(shift)
     return calendar
 
+# writes the calendar to an ics file
+def write_to_file(calendar):
+    open("./fullSchedule.ics", "w").writelines(calendar)    
 
-curr_sched = get_recent_schedule()
-print(curr_sched.name)
-curr_data = load_data(curr_sched)
+def main():
+    curr_sched = get_recent_schedule()
+    print(curr_sched.name)
+    curr_data = load_data(curr_sched)
 
-print(curr_data)
+    print(curr_data)
 
-curr_calendar = create_calendar(curr_data)
-print(curr_calendar.serialize())
+    curr_calendar = create_calendar(curr_data)
+    print(curr_calendar.serialize())
+
+    write_to_file(curr_calendar)
+
+if __name__ == "__main__":
+    main()
