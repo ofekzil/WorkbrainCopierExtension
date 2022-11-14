@@ -5,10 +5,12 @@ import os
 import json
 from pathlib import Path
 from ics import Calendar, Event
+from zoneinfo import ZoneInfo
+from datetime import datetime
 
 
-months = {"January": "01", "February": "02", "March": "03", "April": "04", "May": "05", "June": "06", 
-"July": "07", "August": "08", "September": "09", "October": "10", "November": "11", "December": "12"}
+months = {"January": 1, "February": 2, "March": 3, "April": 4, "May": 5, "June": 6, 
+"July": 7, "August": 8, "September": 9, "October": 10, "November": 11, "December": 12}
 
 # accesses the user's downloads folder
 if os.name == 'nt':
@@ -77,12 +79,16 @@ def load_data(sched_file):
 # creates .ics file from given schedule data
 def create_calendar(curr_data):
     calendar = Calendar()
-    year_month = curr_data["Year"] + "-" + months[curr_data["Month"]] + "-"
+    year = int(curr_data["Year"])
+    month = months[curr_data["Month"]]
+
     for day in curr_data["Days"]:
-        begin = year_month + day["Date"] + " " + day["Start_Time"] + ":00"
-        end = year_month + day["Date"] + " " + day["End_Time"] + ":00"
+        begin = datetime(year, month, int(day["Date"]), int(day["Start_Time"][0:2]), minute=int(day["Start_Time"][3:5]), tzinfo=ZoneInfo("America/Vancouver"))
+        end = datetime(year, month, int(day["Date"]), int(day["End_Time"][0:2]), minute=int(day["End_Time"][3:5]), tzinfo=ZoneInfo("America/Vancouver"))
         shift = Event(name=day["Job"], begin=begin, end=end, location=day["Department"])
         calendar.events.add(shift)
+        print(begin)
+        print(end)
     return calendar
 
 # writes the calendar to an ics file
