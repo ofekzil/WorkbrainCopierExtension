@@ -93,7 +93,7 @@ def create_calendar(curr_data):
 
 # writes the calendar to an ics file
 def write_to_file(calendar):
-    open("./fullSchedule.ics", "w").writelines(calendar)    
+    open("./copyAndSave/fullSchedule.ics", "w").writelines(calendar)    
 
 def main():
     curr_sched = get_recent_schedule()
