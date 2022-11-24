@@ -32,7 +32,7 @@ def get_recent_schedule():
     schedules = list()
 
     for entry in entries:
-        if (re.search("schedule(\s\(\d\))?\.json",entry.name) != None):
+        if (re.search("schedule(\s\(\d+\))?\.json",entry.name) != None):
             schedules.append(entry)
 
     most_recent = max(schedules, key=os.path.getctime)
@@ -51,12 +51,12 @@ def create_calendar(curr_data):
     month = months[curr_data["Month"]]
 
     for day in curr_data["Days"]:
+        id = str(day["Job"] + day["Date"] + day["Start_Time"][0:2] + day["Start_Time"][3:5] + day["End_Time"][0:2] + day["End_Time"][3:5] + day["Department"])
         begin = datetime(year, month, int(day["Date"]), int(day["Start_Time"][0:2]), minute=int(day["Start_Time"][3:5]), tzinfo=ZoneInfo("America/Vancouver"))
         end = datetime(year, month, int(day["Date"]), int(day["End_Time"][0:2]), minute=int(day["End_Time"][3:5]), tzinfo=ZoneInfo("America/Vancouver"))
-        shift = Event(name=day["Job"], begin=begin, end=end, location=day["Department"])
+        shift = Event(name=day["Job"], begin=begin, end=end, location=day["Department"], uid=id)
         calendar.events.add(shift)
-        print(begin)
-        print(end)
+        print(id)
     return calendar
 
 # writes the calendar to an ics file
