@@ -1,5 +1,18 @@
-function hello() {
-    alert('hello there!')
-}
 
-document.getElementById("run script").addEventListener('click', hello);
+
+// listener that invokes script when popup button is pressed in workbrain month mode
+// if button is pressed elsewhere, it alerts the user
+  document.getElementById("download").addEventListener('click', () => {
+
+    chrome.tabs.query({ active: true }, function (tabs) {
+        const url = tabs[0].url;
+        if (url && url.includes("workbrain.cineplex.com/etm/time/timesheet/etmTnsMonth")) {
+            chrome.scripting.executeScript({
+                target: { tabId: tabs[0].id },
+                files: ["./extension/saveCalendar.js"],
+            });
+        } else {
+            alert("You must be in workbrain month mode to operate extension");
+        }
+    });
+});

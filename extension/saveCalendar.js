@@ -9,26 +9,20 @@ function setSchedule() {
   
   };
   
-  // monthYear is of the form "Month Year" (w/ teh space)
+  // monthYear is of the form "Month Year" (w/ the space)
   let monthYear = document.getElementsByClassName("pageTitle")[0].innerText;
   const separated = monthYear.split(/\s+/);
-  console.assert(separated.length === 2);
   schedule["Month"] = separated[0];
   schedule["Year"] = separated[1];
-  console.log(schedule["Month"]);
-  console.log(schedule["Year"]);
 
   //strings in workDaysInfo are of the form "Day Start_Time - End_Time\n(Job, Department)\nmore..."
   let workDaysInfo = document.getElementsByClassName("calendarCellRegularFuture"); 
   for (let i = 0; i < workDaysInfo.length; i += 2) {
     let curr = workDaysInfo[i].innerText;
     curr = curr.replace("more...", "").replace("-", "").replace(/,/g, "").replace("(","").replace(")","");
-    console.log(curr);
     const parts = curr.split(/\s+/);
-    console.log(parts.length);
     schedule["Days"].push(setDay(parts));
   }
-  console.log(schedule["Days"]); 
   
   return schedule;
 }
@@ -69,7 +63,3 @@ function download(filename, text) {
 
 writeToFile(setSchedule());
 
-
-
-
-console.log("finished in copy")
