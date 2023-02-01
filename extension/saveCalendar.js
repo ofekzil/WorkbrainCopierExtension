@@ -1,4 +1,4 @@
-
+// script to download schedule information as a .json file to the computer
 
 // sets the schedule to proper JSON format
 function setSchedule() {

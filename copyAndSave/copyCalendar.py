@@ -1,5 +1,4 @@
 # script to get recently downloaded schedule.json file from local downloads folder and create an appropriate .ics file 
-# to be invoked by button in popup.html
 
 import os
 import json

@@ -2,8 +2,8 @@
     "manifest_version" : 3,
     "name" : "Workbrain Calendar Copier",
     "version" : "1.0",
-    "description" : "copies workbrain schedule to personal calendar",
-    "permissions" : ["scripting", "tabs", "activeTab", "storage"],
+    "description" : "downloads workbrain calendar for future shifts as a .json file",
+    "permissions" : ["scripting", "tabs"],
     "host_permissions" : ["https://*.workbrain.cineplex.com/*"],
     "icons" : {
         "16" : "./images/logo.png",
